@@ -52,7 +52,7 @@ export default function Auth() {
       localStorage.setItem('user_name', data.user_name);
       
       setStatus('idle');
-      navigate('/assessment');
+      window.location.href = '/assessment';
 
     } catch (err) {
       setStatus('error');

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import { HeartPulse, Moon, Sun, Info } from 'lucide-react';
 
 import Auth from './pages/Auth';
@@ -51,6 +51,18 @@ function Navigation({ theme, toggleTheme }) {
   );
 }
 
+function ProtectedRoute({ children }) {
+  const token = localStorage.getItem('token');
+  if (!token) return <Navigate to="/" replace />;
+  return children;
+}
+
+function PublicRoute({ children }) {
+  const token = localStorage.getItem('token');
+  if (token) return <Navigate to="/assessment" replace />;
+  return children;
+}
+
 export default function App() {
   const [theme, setTheme] = useState('dark');
 
@@ -69,8 +81,8 @@ export default function App() {
         <Navigation theme={theme} toggleTheme={toggleTheme} />
 
         <Routes>
-          <Route path="/" element={<Auth />} />
-          <Route path="/assessment" element={<Assessment />} />
+          <Route path="/" element={<PublicRoute><Auth /></PublicRoute>} />
+          <Route path="/assessment" element={<ProtectedRoute><Assessment /></ProtectedRoute>} />
           <Route path="/info" element={<InfoPage />} />
         </Routes>
         
