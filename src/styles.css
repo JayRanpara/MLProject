@@ -83,7 +83,7 @@
 }
 
 * { box-sizing: border-box; }
-body { margin: 0; min-width: 320px; background: #070a13; transition: background-color 0.5s ease; position: relative; }
+body { margin: 0; min-width: 320px; background: #040711; transition: background-color 0.5s ease; position: relative; }
 
 h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; margin: 0; }
 

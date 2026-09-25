@@ -67,25 +67,26 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <main className="app-shell" style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden', background: '#070a13' }}>
-        {/* React Bits: Pure FloatingLines Background (Only FloatingLines Remains) */}
-        <div style={{ position: 'fixed', inset: 0, zIndex: 0, opacity: 0.5, pointerEvents: 'none' }}>
+      <main className="app-shell" style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden', background: '#040711' }}>
+        {/* React Bits: Cardio-Vascular Luminescence Wave Background */}
+        <div style={{ position: 'fixed', inset: 0, zIndex: 0, opacity: 0.58, pointerEvents: 'none' }}>
           <FloatingLines
             enabledWaves={['top', 'middle', 'bottom']}
             lineCount={[8, 12, 16]}
-            lineDistance={[6, 5, 4]}
-            topWavePosition={{ x: 10.0, y: 0.9, rotate: -0.3 }}
-            middleWavePosition={{ x: 6.0, y: -0.5, rotate: 0.2 }}
-            bottomWavePosition={{ x: 2.0, y: -0.9, rotate: 0.35 }}
-            bendRadius={4.0}
-            bendStrength={-0.35}
+            lineDistance={[6.5, 5.0, 3.8]}
+            topWavePosition={{ x: 10.0, y: 0.95, rotate: -0.22 }}
+            middleWavePosition={{ x: 5.5, y: -0.45, rotate: 0.16 }}
+            bottomWavePosition={{ x: 2.0, y: -0.85, rotate: 0.3 }}
+            bendRadius={4.5}
+            bendStrength={-0.3}
+            mouseDamping={0.06}
             interactive={true}
             parallax={true}
             parallaxStrength={0.2}
-            animationSpeed={0.6}
-            linesGradient={["#e11d48", "#2563eb", "#38bdf8", "#0284c7"]}
+            animationSpeed={0.5}
+            linesGradient={["#e11d48", "#fb7185", "#2563eb", "#06b6d4", "#38bdf8"]}
             mixBlendMode="screen"
-            backgroundColor="#070a13"
+            backgroundColor="#040711"
           />
         </div>
         
