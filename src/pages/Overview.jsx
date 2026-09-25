@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Activity, Award, Zap, RotateCw } from 'lucide-react';
+import { ArrowRight, Activity, Award, Zap, RotateCw, Cpu, ShieldCheck, Binary, Sliders } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import FoldText from '../components/FoldText';
 import FlipCard from '../components/FlipCard';
@@ -348,6 +348,92 @@ export default function Overview() {
             <p style={{ color: 'var(--text-muted)', fontSize: '14px', lineHeight: '1.6' }}>
               The trained Logistic Regression decision boundary computes an exact cardiovascular disease risk probability percentage between 0% and 100%.
             </p>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Which Model We Use & Why */}
+      <motion.div 
+        className="glass-card" 
+        style={{ marginTop: '56px', width: '100%', padding: '36px', overflow: 'hidden' }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', marginBottom: '24px' }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+              <Cpu size={20} color="#38bdf8" />
+              <span style={{ fontSize: '12px', fontWeight: '800', color: '#38bdf8', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                Production Engine Specifications
+              </span>
+            </div>
+            <h2 style={{ fontSize: '26px', fontWeight: '800', margin: 0, color: '#ffffff' }}>
+              Core Model: Regularized Logistic Regression
+            </h2>
+          </div>
+          <div style={{ background: 'rgba(16, 185, 129, 0.12)', border: '1px solid rgba(16, 185, 129, 0.25)', color: '#10b981', padding: '6px 14px', borderRadius: '999px', fontSize: '12px', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 6px #10b981' }} />
+            Active Serving Model
+          </div>
+        </div>
+
+        <p style={{ color: 'var(--text-muted)', fontSize: '15px', lineHeight: '1.7', marginBottom: '28px' }}>
+          While non-linear ensemble models like Random Forest and Gradient Boosting were evaluated during research, <strong>Logistic Regression (with L2 Regularization)</strong> was selected as the active production classifier in <code style={{ color: '#38bdf8', background: 'rgba(56,189,248,0.1)', padding: '2px 6px', borderRadius: '4px' }}>cardio_model.pkl</code>. In medical diagnostics, explainability and smooth, well-calibrated probability distributions take precedence, ensuring healthcare practitioners understand exactly <em>how</em> each vital influences the final probability.
+        </p>
+
+        {/* 4 Pillars of the Model */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '18px', marginBottom: '28px' }}>
+          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '16px', padding: '20px' }}>
+            <Binary size={22} color="#38bdf8" style={{ marginBottom: '10px' }} />
+            <h4 style={{ fontSize: '15px', fontWeight: '700', marginBottom: '6px', color: '#ffffff' }}>Sigmoid Probability</h4>
+            <p style={{ color: 'var(--text-muted)', fontSize: '13px', lineHeight: '1.5', margin: 0 }}>
+              Calculates continuous risk confidence curves between 0.0 and 1.0 rather than hard heuristic step cuts.
+            </p>
+          </div>
+
+          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '16px', padding: '20px' }}>
+            <ShieldCheck size={22} color="#10b981" style={{ marginBottom: '10px' }} />
+            <h4 style={{ fontSize: '15px', fontWeight: '700', marginBottom: '6px', color: '#ffffff' }}>White-Box Explainability</h4>
+            <p style={{ color: 'var(--text-muted)', fontSize: '13px', lineHeight: '1.5', margin: 0 }}>
+              Transparent mathematical coefficients let doctors audit the precise weight of systolic BP, age, and cholesterol.
+            </p>
+          </div>
+
+          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '16px', padding: '20px' }}>
+            <Sliders size={22} color="#a855f7" style={{ marginBottom: '10px' }} />
+            <h4 style={{ fontSize: '15px', fontWeight: '700', marginBottom: '6px', color: '#ffffff' }}>StandardScaler Pipeline</h4>
+            <p style={{ color: 'var(--text-muted)', fontSize: '13px', lineHeight: '1.5', margin: 0 }}>
+              Fitted with mean and unit-variance normalization across 68k records, preventing feature scale dominance.
+            </p>
+          </div>
+
+          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '16px', padding: '20px' }}>
+            <Zap size={22} color="#e11d48" style={{ marginBottom: '10px' }} />
+            <h4 style={{ fontSize: '15px', fontWeight: '700', marginBottom: '6px', color: '#ffffff' }}>Sub-5ms Inference</h4>
+            <p style={{ color: 'var(--text-muted)', fontSize: '13px', lineHeight: '1.5', margin: 0 }}>
+              Zero tensor graph overhead — executes dot-product matrix multiplication in under 5 milliseconds on CPU.
+            </p>
+          </div>
+        </div>
+
+        {/* Technical Snapshot Ribbon */}
+        <div style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '14px', padding: '16px 20px', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '16px', fontSize: '13px' }}>
+          <div>
+            <span style={{ color: 'var(--text-muted)' }}>Serialized Bundle: </span>
+            <code style={{ color: '#38bdf8', background: 'rgba(56, 189, 248, 0.1)', padding: '2px 6px', borderRadius: '4px' }}>cardio_model.pkl</code>
+          </div>
+          <div>
+            <span style={{ color: 'var(--text-muted)' }}>Framework: </span>
+            <strong style={{ color: '#ffffff' }}>Scikit-Learn & FastAPI</strong>
+          </div>
+          <div>
+            <span style={{ color: 'var(--text-muted)' }}>Input Dimensions: </span>
+            <strong style={{ color: '#ffffff' }}>11 Features (1D Vector)</strong>
+          </div>
+          <div>
+            <span style={{ color: 'var(--text-muted)' }}>Trained Test Accuracy: </span>
+            <strong style={{ color: '#10b981' }}>72.83% (ROC-AUC 79.03%)</strong>
           </div>
         </div>
       </motion.div>
