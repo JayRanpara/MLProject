@@ -114,7 +114,7 @@ export default function Assessment() {
           <motion.div key="hero" className="wizard-header" {...fadeTransition} style={{ marginTop: '20px' }}>
             <h1>A clearer view of <span style={{ color: 'var(--text-accent)' }}>heart health.</span></h1>
             <p style={{ marginBottom: '40px' }}>Enter your current health indicators to receive a personalised cardiovascular risk estimate in a few simple steps.</p>
-            <div className="glass-card" style={{ maxWidth: '400px', margin: '0 auto', textAlign: 'center', padding: '30px' }}>
+            <div className="glass-card hover-card" style={{ maxWidth: '400px', margin: '0 auto', textAlign: 'center', padding: '30px' }}>
               <Shield size={32} style={{ color: 'var(--text-accent)', marginBottom: '16px' }} />
               <h3 style={{ marginBottom: '8px' }}>Private & Secure</h3>
               <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '24px' }}>Your data is processed locally by the clinical model and is never stored.</p>
@@ -306,15 +306,15 @@ export default function Assessment() {
 
                 {/* Multi-Model Comparison Breakdown */}
                 {result.models && (
-                  <div style={{ margin: '28px 0', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '16px', padding: '16px 20px', textAlign: 'left' }}>
+                  <div className="hover-card" style={{ margin: '28px 0', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '16px', padding: '16px 20px', textAlign: 'left' }}>
                     <div style={{ fontSize: '12px', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px' }}>
                       Cross-Model Consensus
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px' }}>
-                      <div style={{ 
+                      <div className="consensus-card" style={{ 
                         background: modelType === 'rf' ? 'rgba(16, 185, 129, 0.12)' : 'rgba(16, 185, 129, 0.05)', 
-                        padding: '10px 14px', 
-                        borderRadius: '10px', 
+                        padding: '12px 14px', 
+                        borderRadius: '12px', 
                         border: modelType === 'rf' ? '1px solid #10b981' : '1px solid rgba(16, 185, 129, 0.2)',
                         boxShadow: modelType === 'rf' ? '0 0 12px rgba(16, 185, 129, 0.2)' : 'none'
                       }}>
@@ -328,7 +328,13 @@ export default function Assessment() {
                         <div style={{ fontSize: '10px', color: '#10b981' }}>73.21% test acc</div>
                       </div>
 
-                      <div style={{ background: 'rgba(56, 189, 248, 0.05)', padding: '10px 14px', borderRadius: '10px', border: '1px solid rgba(56, 189, 248, 0.15)' }}>
+                      <div className="consensus-card" style={{ 
+                        background: modelType === 'lr' ? 'rgba(56, 189, 248, 0.12)' : 'rgba(56, 189, 248, 0.05)', 
+                        padding: '12px 14px', 
+                        borderRadius: '12px', 
+                        border: modelType === 'lr' ? '1px solid #38bdf8' : '1px solid rgba(56, 189, 248, 0.15)',
+                        boxShadow: modelType === 'lr' ? '0 0 12px rgba(56, 189, 248, 0.2)' : 'none'
+                      }}>
                         <div style={{ fontSize: '11px', color: '#38bdf8', fontWeight: '700' }}>📈 Logistic Regression</div>
                         <div style={{ fontSize: '18px', fontWeight: '800', color: '#ffffff', marginTop: '2px' }}>
                           {Math.round(result.models.logistic_regression.risk_probability * 100)}%
@@ -336,7 +342,13 @@ export default function Assessment() {
                         <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>72.83% test acc</div>
                       </div>
 
-                      <div style={{ background: 'rgba(168, 85, 247, 0.05)', padding: '10px 14px', borderRadius: '10px', border: '1px solid rgba(168, 85, 247, 0.15)' }}>
+                      <div className="consensus-card" style={{ 
+                        background: modelType === 'ensemble' ? 'rgba(168, 85, 247, 0.12)' : 'rgba(168, 85, 247, 0.05)', 
+                        padding: '12px 14px', 
+                        borderRadius: '12px', 
+                        border: modelType === 'ensemble' ? '1px solid #a855f7' : '1px solid rgba(168, 85, 247, 0.15)',
+                        boxShadow: modelType === 'ensemble' ? '0 0 12px rgba(168, 85, 247, 0.2)' : 'none'
+                      }}>
                         <div style={{ fontSize: '11px', color: '#a855f7', fontWeight: '700' }}>🧬 Dual Consensus</div>
                         <div style={{ fontSize: '18px', fontWeight: '800', color: '#ffffff', marginTop: '2px' }}>
                           {Math.round(result.models.ensemble.risk_probability * 100)}%

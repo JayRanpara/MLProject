@@ -29,7 +29,7 @@ export default function Info() {
         <p>Understanding the models, features, and accuracy benchmarks behind CardioCare.</p>
       </motion.div>
 
-      <motion.div className="glass-card" style={{ marginBottom: '40px', padding: '0', overflow: 'hidden' }} {...fadeTransition}>
+      <motion.div className="glass-card hover-card" style={{ marginBottom: '40px', padding: '0', overflow: 'hidden' }} {...fadeTransition}>
         <div style={{ padding: '30px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
             <div>
@@ -37,12 +37,12 @@ export default function Info() {
               <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>All 6 classification architectures evaluated on the identical 80/20 train-test split (54,993 train / 13,749 test records from cardio_train.csv).</p>
             </div>
             <div style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', padding: '8px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
-              <CheckCircle2 size={16} /> Random Forest & Gradient Boosting Lead Accuracy
+              <CheckCircle2 size={16} /> Random Forest Leads Production Accuracy
             </div>
           </div>
           
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
+            <table className="benchmark-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
               <thead>
                 <tr style={{ color: 'var(--text-muted)', fontSize: '12px', fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
                   <th style={{ padding: '16px 8px' }}>Rank</th>
@@ -126,26 +126,59 @@ export default function Info() {
         </div>
       </motion.div>
 
-      <motion.div className="glass-card" style={{ marginBottom: '30px' }} {...fadeTransition}>
+      <motion.div className="glass-card hover-card" style={{ marginBottom: '30px' }} {...fadeTransition}>
         <div className="step-title" style={{ marginBottom: '20px', fontSize: '20px' }}>
           <Database size={22} /> Features Integrated
         </div>
-        <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', fontSize: '16px', marginBottom: '15px' }}>
-          The production model is trained on 11 core clinical indicators:
+        <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', fontSize: '15px', marginBottom: '20px' }}>
+          The production Random Forest model is trained on 11 standardized clinical indicators:
         </p>
-        <ul style={{ color: 'var(--text-muted)', lineHeight: '1.8', fontSize: '15px', paddingLeft: '20px', columnCount: 2, columnGap: '40px' }}>
-          <li><strong>Age:</strong> Age in years</li>
-          <li><strong>Biological Sex:</strong> Male or Female</li>
-          <li><strong>Height:</strong> Height in cm</li>
-          <li><strong>Weight:</strong> Weight in kg</li>
-          <li><strong>ap_hi:</strong> Systolic blood pressure</li>
-          <li><strong>ap_lo:</strong> Diastolic blood pressure</li>
-          <li><strong>Cholesterol:</strong> Normal, High, or Very High</li>
-          <li><strong>Glucose:</strong> Normal, High, or Very High</li>
-          <li><strong>Smoking:</strong> Non-smoker or Smoker</li>
-          <li><strong>Alcohol:</strong> Intake frequency</li>
-          <li><strong>Physical Activity:</strong> Active lifestyle</li>
-        </ul>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px' }}>
+          <div className="feature-pill">
+            <span style={{ color: '#fff', fontWeight: '600', fontSize: '14px' }}>Age</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Years (Integer)</span>
+          </div>
+          <div className="feature-pill">
+            <span style={{ color: '#fff', fontWeight: '600', fontSize: '14px' }}>Biological Sex</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Male / Female</span>
+          </div>
+          <div className="feature-pill">
+            <span style={{ color: '#fff', fontWeight: '600', fontSize: '14px' }}>Height</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Centimeters (cm)</span>
+          </div>
+          <div className="feature-pill">
+            <span style={{ color: '#fff', fontWeight: '600', fontSize: '14px' }}>Weight</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Kilograms (kg)</span>
+          </div>
+          <div className="feature-pill">
+            <span style={{ color: '#38bdf8', fontWeight: '700', fontSize: '14px' }}>ap_hi (Systolic BP)</span>
+            <span style={{ color: '#38bdf8', fontSize: '12px', fontWeight: '600' }}>Top Predictor</span>
+          </div>
+          <div className="feature-pill">
+            <span style={{ color: '#fff', fontWeight: '600', fontSize: '14px' }}>ap_lo (Diastolic BP)</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>mmHg</span>
+          </div>
+          <div className="feature-pill">
+            <span style={{ color: '#e11d48', fontWeight: '700', fontSize: '14px' }}>Cholesterol</span>
+            <span style={{ color: '#e11d48', fontSize: '12px', fontWeight: '600' }}>3-Tier Category</span>
+          </div>
+          <div className="feature-pill">
+            <span style={{ color: '#fff', fontWeight: '600', fontSize: '14px' }}>Glucose</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>3-Tier Category</span>
+          </div>
+          <div className="feature-pill">
+            <span style={{ color: '#fff', fontWeight: '600', fontSize: '14px' }}>Smoking</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Smoker / Non-Smoker</span>
+          </div>
+          <div className="feature-pill">
+            <span style={{ color: '#fff', fontWeight: '600', fontSize: '14px' }}>Alcohol Intake</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Intake Frequency</span>
+          </div>
+          <div className="feature-pill">
+            <span style={{ color: '#10b981', fontWeight: '700', fontSize: '14px' }}>Physical Activity</span>
+            <span style={{ color: '#10b981', fontSize: '12px', fontWeight: '600' }}>Active Lifestyle</span>
+          </div>
+        </div>
       </motion.div>
     </div>
   );

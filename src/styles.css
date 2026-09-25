@@ -286,6 +286,132 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; margin: 0; 
   box-shadow: var(--shadow-card);
   padding: 40px;
   width: 100%;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              border-color 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              box-shadow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Universal Hover Card Elevation & Glow */
+.glass-card.hover-card,
+.hover-card {
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              border-color 0.3s ease,
+              background-color 0.3s ease;
+  will-change: transform;
+}
+
+.glass-card.hover-card:hover,
+.hover-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(56, 189, 248, 0.35) !important;
+  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.45), 0 0 24px rgba(56, 189, 248, 0.12) !important;
+}
+
+/* Overview 4-Pillars Card */
+.pillar-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 20px;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease,
+              background-color 0.3s ease;
+  cursor: default;
+  will-change: transform;
+}
+
+.pillar-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(16, 185, 129, 0.45) !important;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(16, 185, 129, 0.15) !important;
+  background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+/* Overview Statistics Ribbon Box */
+.stat-box {
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+              background-color 0.25s ease,
+              border-color 0.25s ease,
+              box-shadow 0.25s ease;
+  cursor: default;
+}
+
+.stat-box:hover {
+  transform: translateY(-4px) scale(1.02);
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Interactive Feature Pill Card */
+.feature-pill {
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.25s ease,
+              background-color 0.25s ease,
+              box-shadow 0.25s ease;
+  cursor: default;
+}
+
+.feature-pill:hover {
+  transform: translateY(-3px);
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35), 0 0 16px rgba(56, 189, 248, 0.1);
+}
+
+/* Consensus Models (Assessment Result) */
+.consensus-card {
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.25s ease,
+              border-color 0.25s ease;
+  cursor: default;
+}
+
+.consensus-card:hover {
+  transform: translateY(-4px) scale(1.025);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.45);
+}
+
+/* Technical Snapshot Ribbon Strip */
+.snapshot-strip {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 16px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 13px;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.snapshot-strip:hover {
+  transform: translateY(-2px);
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Benchmark Table Row Hover */
+.benchmark-table tbody tr {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.benchmark-table tbody tr:hover {
+  background-color: rgba(56, 189, 248, 0.08) !important;
 }
 
 .step-title {

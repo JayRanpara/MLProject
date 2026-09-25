@@ -281,25 +281,25 @@ export default function Overview() {
 
       {/* Project Statistics Ribbon */}
       <motion.div 
-        className="glass-card" 
-        style={{ marginTop: '56px', width: '100%', padding: '28px 36px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '28px', textAlign: 'center' }}
+        className="glass-card hover-card" 
+        style={{ marginTop: '56px', width: '100%', padding: '24px 32px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '20px', textAlign: 'center' }}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
       >
-        <div>
+        <div className="stat-box">
           <div style={{ fontSize: '32px', fontWeight: '800', color: '#38bdf8', letterSpacing: '-0.5px' }}>68,742</div>
           <div style={{ color: 'var(--text-muted)', fontSize: '13px', marginTop: '4px', fontWeight: '500' }}>Clinical Training Records</div>
         </div>
-        <div>
+        <div className="stat-box">
           <div style={{ fontSize: '32px', fontWeight: '800', color: '#10b981', letterSpacing: '-0.5px' }}>73.21%</div>
           <div style={{ color: 'var(--text-muted)', fontSize: '13px', marginTop: '4px', fontWeight: '500' }}>Random Forest Test Accuracy</div>
         </div>
-        <div>
+        <div className="stat-box">
           <div style={{ fontSize: '32px', fontWeight: '800', color: '#e11d48', letterSpacing: '-0.5px' }}>11</div>
           <div style={{ color: 'var(--text-muted)', fontSize: '13px', marginTop: '4px', fontWeight: '500' }}>Bio-Vitals Analyzed</div>
         </div>
-        <div>
+        <div className="stat-box">
           <div style={{ fontSize: '32px', fontWeight: '800', color: '#a855f7', letterSpacing: '-0.5px' }}>&lt; 5 ms</div>
           <div style={{ color: 'var(--text-muted)', fontSize: '13px', marginTop: '4px', fontWeight: '500' }}>FastAPI Model Latency</div>
         </div>
@@ -320,7 +320,7 @@ export default function Overview() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
-          <div className="glass-card" style={{ padding: '28px' }}>
+          <div className="glass-card hover-card" style={{ padding: '28px' }}>
             <div style={{ fontSize: '12px', fontWeight: '800', color: '#38bdf8', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>
               Phase 01
             </div>
@@ -330,7 +330,7 @@ export default function Overview() {
             </p>
           </div>
 
-          <div className="glass-card" style={{ padding: '28px' }}>
+          <div className="glass-card hover-card" style={{ padding: '28px' }}>
             <div style={{ fontSize: '12px', fontWeight: '800', color: '#10b981', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>
               Phase 02
             </div>
@@ -340,7 +340,7 @@ export default function Overview() {
             </p>
           </div>
 
-          <div className="glass-card" style={{ padding: '28px' }}>
+          <div className="glass-card hover-card" style={{ padding: '28px' }}>
             <div style={{ fontSize: '12px', fontWeight: '800', color: '#e11d48', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>
               Phase 03
             </div>
@@ -354,7 +354,7 @@ export default function Overview() {
 
       {/* Which Model We Use & Why */}
       <motion.div 
-        className="glass-card" 
+        className="glass-card hover-card" 
         style={{ marginTop: '56px', width: '100%', padding: '36px', overflow: 'hidden' }}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -384,7 +384,7 @@ export default function Overview() {
 
         {/* 4 Pillars of the Model */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '18px', marginBottom: '28px' }}>
-          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '16px', padding: '20px' }}>
+          <div className="pillar-card">
             <Binary size={22} color="#10b981" style={{ marginBottom: '10px' }} />
             <h4 style={{ fontSize: '15px', fontWeight: '700', marginBottom: '6px', color: '#ffffff' }}>100-Tree Bagging Ensemble</h4>
             <p style={{ color: 'var(--text-muted)', fontSize: '13px', lineHeight: '1.5', margin: 0 }}>
@@ -392,7 +392,7 @@ export default function Overview() {
             </p>
           </div>
 
-          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '16px', padding: '20px' }}>
+          <div className="pillar-card">
             <ShieldCheck size={22} color="#38bdf8" style={{ marginBottom: '10px' }} />
             <h4 style={{ fontSize: '15px', fontWeight: '700', marginBottom: '6px', color: '#ffffff' }}>Non-Linear Clinical Splits</h4>
             <p style={{ color: 'var(--text-muted)', fontSize: '13px', lineHeight: '1.5', margin: 0 }}>
@@ -400,7 +400,7 @@ export default function Overview() {
             </p>
           </div>
 
-          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '16px', padding: '20px' }}>
+          <div className="pillar-card">
             <Sliders size={22} color="#a855f7" style={{ marginBottom: '10px' }} />
             <h4 style={{ fontSize: '15px', fontWeight: '700', marginBottom: '6px', color: '#ffffff' }}>StandardScaler Pipeline</h4>
             <p style={{ color: 'var(--text-muted)', fontSize: '13px', lineHeight: '1.5', margin: 0 }}>
@@ -408,7 +408,7 @@ export default function Overview() {
             </p>
           </div>
 
-          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '16px', padding: '20px' }}>
+          <div className="pillar-card">
             <Zap size={22} color="#e11d48" style={{ marginBottom: '10px' }} />
             <h4 style={{ fontSize: '15px', fontWeight: '700', marginBottom: '6px', color: '#ffffff' }}>Sub-5ms Parallel Inference</h4>
             <p style={{ color: 'var(--text-muted)', fontSize: '13px', lineHeight: '1.5', margin: 0 }}>
@@ -418,7 +418,7 @@ export default function Overview() {
         </div>
 
         {/* Technical Snapshot Ribbon */}
-        <div style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '14px', padding: '16px 20px', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '16px', fontSize: '13px' }}>
+        <div className="snapshot-strip">
           <div>
             <span style={{ color: 'var(--text-muted)' }}>Serialized Bundle: </span>
             <code style={{ color: '#10b981', background: 'rgba(16, 185, 129, 0.1)', padding: '2px 6px', borderRadius: '4px' }}>cardio_model.pkl</code>
@@ -440,7 +440,7 @@ export default function Overview() {
 
       {/* Clinical Disclaimer Banner */}
       <motion.div 
-        className="glass-card"
+        className="glass-card hover-card"
         style={{ marginTop: '50px', width: '100%', padding: '20px 28px', borderLeft: '4px solid #38bdf8', display: 'flex', alignItems: 'center', gap: '16px' }}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}

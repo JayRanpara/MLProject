@@ -62,7 +62,7 @@ export default function Auth() {
 
   return (
     <div className="main-container" style={{ maxWidth: '440px', marginTop: '60px' }}>
-      <motion.div className="glass-card" {...fadeTransition}>
+      <motion.div className="glass-card hover-card" {...fadeTransition}>
         <div className="wizard-header" style={{ marginBottom: '30px' }}>
           <h2 style={{ fontSize: '32px' }}>{isLogin ? 'Welcome Back' : 'Create Account'}</h2>
           <p>{isLogin ? 'Sign in to your account to continue' : 'Sign up to start your health assessment'}</p>
