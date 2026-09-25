@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import { Heart, Activity } from 'lucide-react';
 
-import Auth from './pages/Auth';
 import Assessment from './pages/Assessment';
 import InfoPage from './pages/Info';
 import Overview from './pages/Overview';
@@ -11,9 +10,6 @@ import FloatingLines from './components/FloatingLines';
 
 function Navigation({ theme, toggleTheme }) {
   const location = useLocation();
-  const userName = localStorage.getItem('user_name');
-  
-  if (!userName) return null;
 
   return (
     <div className="nav-container">
@@ -42,18 +38,6 @@ function Navigation({ theme, toggleTheme }) {
       </nav>
     </div>
   );
-}
-
-function ProtectedRoute({ children }) {
-  const token = localStorage.getItem('token');
-  if (!token) return <Navigate to="/login" replace />;
-  return children;
-}
-
-function PublicRoute({ children }) {
-  const token = localStorage.getItem('token');
-  if (token) return <Navigate to="/" replace />;
-  return children;
 }
 
 export default function App() {
@@ -94,11 +78,11 @@ export default function App() {
           <Navigation theme={theme} toggleTheme={toggleTheme} />
 
           <Routes>
-            <Route path="/login" element={<PublicRoute><Auth /></PublicRoute>} />
-            <Route path="/" element={<ProtectedRoute><Overview /></ProtectedRoute>} />
-            <Route path="/assessment" element={<ProtectedRoute><Assessment /></ProtectedRoute>} />
-            <Route path="/insights" element={<ProtectedRoute><Insights /></ProtectedRoute>} />
-            <Route path="/architecture" element={<ProtectedRoute><InfoPage /></ProtectedRoute>} />
+            <Route path="/" element={<Overview />} />
+            <Route path="/assessment" element={<Assessment />} />
+            <Route path="/insights" element={<Insights />} />
+            <Route path="/architecture" element={<InfoPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
           
           <footer style={{ position: 'relative', zIndex: 10, marginTop: '40px' }}>
