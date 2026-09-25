@@ -55,6 +55,9 @@ function PublicRoute({ children }) {
   return children;
 }
 
+import ColorBends from './components/ColorBends';
+import CursorGrid from './components/CursorGrid';
+
 export default function App() {
   const [theme, setTheme] = useState('dark');
 
@@ -66,23 +69,60 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <main className="app-shell">
-        <div className="aurora aurora-one" />
-        <div className="aurora aurora-two" />
-        
-        <Navigation theme={theme} toggleTheme={toggleTheme} />
+      <main className="app-shell" style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
+        {/* React Bits: ColorBends Shader Background */}
+        <div style={{ position: 'fixed', inset: 0, zIndex: 0, opacity: 0.38, pointerEvents: 'none' }}>
+          <ColorBends
+            colors={["#e11d48", "#1d4ed8", "#38bdf8", "#0284c7"]}
+            rotation={45}
+            speed={0.12}
+            scale={1.2}
+            frequency={1}
+            warpStrength={0.8}
+            mouseInfluence={0.4}
+            noise={0.08}
+            parallax={0.25}
+            iterations={1}
+            intensity={1.3}
+            bandWidth={7}
+            transparent
+          />
+        </div>
 
-        <Routes>
-          <Route path="/login" element={<PublicRoute><Auth /></PublicRoute>} />
-          <Route path="/" element={<ProtectedRoute><Overview /></ProtectedRoute>} />
-          <Route path="/assessment" element={<ProtectedRoute><Assessment /></ProtectedRoute>} />
-          <Route path="/insights" element={<ProtectedRoute><Insights /></ProtectedRoute>} />
-          <Route path="/architecture" element={<ProtectedRoute><InfoPage /></ProtectedRoute>} />
-        </Routes>
+        {/* React Bits: Interactive Cursor Grid on hover/click */}
+        <div style={{ position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none' }}>
+          <CursorGrid
+            cellSize={60}
+            color="#38bdf8"
+            radius={150}
+            falloff="smooth"
+            holdTime={300}
+            fadeDuration={600}
+            lineWidth={1.1}
+            maxOpacity={0.35}
+            fillOpacity={0.05}
+            gridOpacity={0.02}
+            cellRadius={4}
+            clickPulse={true}
+            pulseSpeed={700}
+          />
+        </div>
         
-        <footer style={{position: 'relative', zIndex: 10, marginTop: '40px'}}>
-          CardioCare · For educational use only · Not a substitute for medical advice
-        </footer>
+        <div style={{ position: 'relative', zIndex: 10 }}>
+          <Navigation theme={theme} toggleTheme={toggleTheme} />
+
+          <Routes>
+            <Route path="/login" element={<PublicRoute><Auth /></PublicRoute>} />
+            <Route path="/" element={<ProtectedRoute><Overview /></ProtectedRoute>} />
+            <Route path="/assessment" element={<ProtectedRoute><Assessment /></ProtectedRoute>} />
+            <Route path="/insights" element={<ProtectedRoute><Insights /></ProtectedRoute>} />
+            <Route path="/architecture" element={<ProtectedRoute><InfoPage /></ProtectedRoute>} />
+          </Routes>
+          
+          <footer style={{ position: 'relative', zIndex: 10, marginTop: '40px' }}>
+            CardioCare · For educational use only · Not a substitute for medical advice
+          </footer>
+        </div>
       </main>
     </BrowserRouter>
   );

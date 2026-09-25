@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import FoldText from '../components/FoldText';
 
 const fadeTransition = {
   initial: { opacity: 0, y: 20 },
@@ -10,10 +11,31 @@ const fadeTransition = {
 
 export default function Overview() {
   return (
-    <div className="main-container" style={{ maxWidth: '1000px', marginTop: '60px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div className="main-container" style={{ maxWidth: '1000px', marginTop: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       
+      {/* React Bits: FoldText Animated Headline */}
+      <motion.div style={{ textAlign: 'center', marginBottom: '36px' }} {...fadeTransition}>
+        <FoldText
+          text="Clinical Intelligence Unfolds"
+          splitBy="char"
+          hinge="top"
+          trigger="mount"
+          duration={0.7}
+          stagger={0.03}
+          ease="power3.out"
+          perspective={800}
+          creaseShading={0.6}
+          fontSize="clamp(2rem, 5vw, 3.4rem)"
+          fontWeight={800}
+          color="#ffffff"
+        />
+        <p style={{ color: 'var(--text-muted)', fontSize: '16px', marginTop: '12px', maxWidth: '640px', marginInline: 'auto', lineHeight: '1.6' }}>
+          Real-time in-memory cardiovascular evaluation powered by production-grade clinical machine learning.
+        </p>
+      </motion.div>
+
       <motion.div 
-        style={{ display: 'flex', gap: '20px', marginBottom: '50px' }}
+        style={{ display: 'flex', gap: '20px', marginBottom: '40px' }}
         {...fadeTransition}
       >
         <Link 

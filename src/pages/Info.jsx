@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Target, Database, BrainCircuit, Activity, Info as InfoIcon, Award, CheckCircle2 } from 'lucide-react';
+import FoldText from '../components/FoldText';
 
 const fadeTransition = {
   initial: { opacity: 0, y: 20 },
@@ -11,7 +12,20 @@ export default function Info() {
   return (
     <div className="main-container" style={{ maxWidth: '1000px', marginTop: '40px', paddingBottom: '40px' }}>
       <motion.div className="wizard-header" {...fadeTransition}>
-        <h1>Clinical <span style={{ color: '#38bdf8' }}>Architecture.</span></h1>
+        <div style={{ marginBottom: '8px' }}>
+          <FoldText
+            text="Clinical Architecture"
+            splitBy="char"
+            hinge="top"
+            trigger="mount"
+            duration={0.65}
+            stagger={0.03}
+            ease="power3.out"
+            fontSize="clamp(2rem, 4vw, 2.8rem)"
+            fontWeight={800}
+            color="#ffffff"
+          />
+        </div>
         <p>Understanding the models, features, and accuracy benchmarks behind CardioCare.</p>
       </motion.div>
 
