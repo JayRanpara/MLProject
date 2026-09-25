@@ -13,9 +13,10 @@ import jwt
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 MODEL_PATH = PROJECT_ROOT / "cardio_model.pkl"
 DB_PATH = Path(os.getenv("DB_PATH", PROJECT_ROOT / "server" / "cardio.db"))
+DB_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 # JWT Config
-SECRET_KEY = "cardiosight_secret_super_key_for_jwt"
+SECRET_KEY = os.getenv("SECRET_KEY", "cardiosight_secret_super_key_for_jwt")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7 # 7 days
 
@@ -58,10 +59,11 @@ numeric_columns = ["age", "height", "weight", "ap_hi", "ap_lo"]
 
 app = FastAPI(title="CardioSight API")
 
+# Universal CORS for Vercel, Render, and Localhost
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )

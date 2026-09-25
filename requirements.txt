@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+joblib
+pandas
+scikit-learn
+numpy<2
+passlib[bcrypt]
+pyjwt
+pydantic[email]
