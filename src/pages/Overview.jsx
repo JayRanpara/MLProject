@@ -83,8 +83,8 @@ export default function Overview() {
         transition={{ delay: 0.4, duration: 0.6 }}
       >
         <img 
-          src="/hero-heart.jpg" 
-          alt="AI Heart" 
+          src="/ai-heart.jpg" 
+          alt="AI Cardiovascular Visualization" 
           style={{ width: '100%', height: 'auto', display: 'block' }} 
         />
       </motion.div>
