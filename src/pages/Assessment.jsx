@@ -103,7 +103,17 @@ export default function Assessment() {
       setStatus('complete');
     } catch (err) {
       setStatus('error');
-      setError(err.message.includes('fetch') ? 'Cannot reach API. Ensure Python server is running.' : err.message);
+      const isMissingEnvInProd = typeof window !== 'undefined' && 
+        window.location.hostname !== 'localhost' && 
+        (!import.meta.env.VITE_API_URL || import.meta.env.VITE_API_URL.includes('localhost'));
+
+      if (isMissingEnvInProd) {
+        setError('Backend URL not configured on Vercel! Add VITE_API_URL in Vercel settings and redeploy.');
+      } else if (err.message.includes('fetch')) {
+        setError('Cannot reach API. If Render free tier is waking up (~30s), please wait a moment and try again.');
+      } else {
+        setError(err.message);
+      }
     }
   }
 

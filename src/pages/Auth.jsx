@@ -56,7 +56,17 @@ export default function Auth() {
 
     } catch (err) {
       setStatus('error');
-      setErrorMsg(err.message === 'Failed to fetch' ? 'Unable to connect to server' : err.message);
+      const isMissingEnvInProd = typeof window !== 'undefined' && 
+        window.location.hostname !== 'localhost' && 
+        (!import.meta.env.VITE_API_URL || import.meta.env.VITE_API_URL.includes('localhost'));
+
+      if (isMissingEnvInProd) {
+        setErrorMsg('Backend URL not configured on Vercel! Please add VITE_API_URL=https://your-backend.onrender.com in your Vercel Project Settings > Environment Variables, then click Redeploy.');
+      } else if (err.message === 'Failed to fetch' || err.message.includes('fetch')) {
+        setErrorMsg('Unable to connect to backend. If your Render backend is waking up from sleep, please wait 30–50 seconds and try again.');
+      } else {
+        setErrorMsg(err.message);
+      }
     }
   };
 
