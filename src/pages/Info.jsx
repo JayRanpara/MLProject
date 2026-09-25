@@ -20,10 +20,10 @@ export default function Info() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
             <div>
               <h2 style={{ fontSize: '20px', marginBottom: '8px' }}>Multi-Model Classification Benchmark (Test Set Evaluation)</h2>
-              <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>All 6 classification architectures evaluated on the identical 80/20 train-test split (204,277 train / 51,070 test records).</p>
+              <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>All 6 classification architectures evaluated on the identical 80/20 train-test split (54,993 train / 13,749 test records from cardio_train.csv).</p>
             </div>
             <div style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', padding: '8px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
-              <CheckCircle2 size={16} /> Gradient Boosting Selected as Champion
+              <CheckCircle2 size={16} /> Random Forest & Gradient Boosting Lead Accuracy
             </div>
           </div>
           
@@ -45,33 +45,67 @@ export default function Info() {
                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', background: 'rgba(16, 185, 129, 0.03)' }}>
                   <td style={{ padding: '20px 8px' }}><div style={{ width: '28px', height: '28px', background: 'rgba(16, 185, 129, 0.15)', borderRadius: '50%', display: 'grid', placeItems: 'center' }}><Award size={16} color="#10b981" /></div></td>
                   <td style={{ padding: '20px 8px', fontWeight: '600', color: '#fff', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    Gradient Boosting <span style={{ background: '#10b981', color: '#fff', fontSize: '10px', padding: '2px 8px', borderRadius: '4px', letterSpacing: '0.5px' }}>CHAMPION</span>
+                    Random Forest <span style={{ background: '#10b981', color: '#fff', fontSize: '10px', padding: '2px 8px', borderRadius: '4px', letterSpacing: '0.5px' }}>CHAMPION</span>
                   </td>
-                  <td style={{ padding: '20px 8px', color: '#10b981', fontWeight: '700' }}>88.733%</td>
-                  <td style={{ padding: '20px 8px', fontWeight: '600' }}>75.72%</td>
-                  <td style={{ padding: '20px 8px', fontWeight: '600' }}>65.73%</td>
-                  <td style={{ padding: '20px 8px', fontWeight: '600' }}>5.17%</td>
-                  <td style={{ padding: '20px 8px', fontWeight: '600' }}>9.59%</td>
-                  <td style={{ padding: '20px 8px', color: '#10b981', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '6px' }}><CheckCircle2 size={16} /> Integrated & Serving</td>
+                  <td style={{ padding: '20px 8px', color: '#10b981', fontWeight: '700' }}>73.205%</td>
+                  <td style={{ padding: '20px 8px', fontWeight: '600' }}>80.03%</td>
+                  <td style={{ padding: '20px 8px', fontWeight: '600' }}>74.79%</td>
+                  <td style={{ padding: '20px 8px', fontWeight: '600' }}>68.54%</td>
+                  <td style={{ padding: '20px 8px', fontWeight: '600' }}>71.53%</td>
+                  <td style={{ padding: '20px 8px', color: '#10b981', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '6px' }}><CheckCircle2 size={16} /> Top Benchmark</td>
                 </tr>
-                {[
-                  { rank: '2nd', name: 'Random Forest', acc: '88.688%', roc: '75.12%', prec: '61.20%', rec: '4.80%', f1: '8.90%' },
-                  { rank: '3rd', name: 'Logistic Regression', acc: '88.580%', roc: '75.25%', prec: '60.76%', rec: '3.25%', f1: '6.18%' },
-                  { rank: '4th', name: 'Gaussian Naive Bayes', acc: '88.580%', roc: '72.84%', prec: '58.10%', rec: '2.90%', f1: '5.52%' },
-                  { rank: '5th', name: 'K-Nearest Neighbors', acc: '87.531%', roc: '68.41%', prec: '41.50%', rec: '12.30%', f1: '18.96%' },
-                  { rank: '6th', name: 'Decision Tree', acc: '80.061%', roc: '58.91%', prec: '22.40%', rec: '24.10%', f1: '23.22%' },
-                ].map((row, idx) => (
-                  <tr key={idx} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                    <td style={{ padding: '20px 8px', color: 'var(--text-muted)' }}>{row.rank}</td>
-                    <td style={{ padding: '20px 8px', color: '#e2e8f0' }}>{row.name}</td>
-                    <td style={{ padding: '20px 8px', color: '#10b981', fontWeight: '600' }}>{row.acc}</td>
-                    <td style={{ padding: '20px 8px' }}>{row.roc}</td>
-                    <td style={{ padding: '20px 8px' }}>{row.prec}</td>
-                    <td style={{ padding: '20px 8px' }}>{row.rec}</td>
-                    <td style={{ padding: '20px 8px' }}>{row.f1}</td>
-                    <td style={{ padding: '20px 8px', color: 'var(--text-muted)' }}>Evaluated</td>
-                  </tr>
-                ))}
+                <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                  <td style={{ padding: '20px 8px', color: 'var(--text-muted)' }}>2nd</td>
+                  <td style={{ padding: '20px 8px', color: '#e2e8f0', fontWeight: '600' }}>Gradient Boosting</td>
+                  <td style={{ padding: '20px 8px', color: '#10b981', fontWeight: '600' }}>73.154%</td>
+                  <td style={{ padding: '20px 8px' }}>80.08%</td>
+                  <td style={{ padding: '20px 8px' }}>74.49%</td>
+                  <td style={{ padding: '20px 8px' }}>68.94%</td>
+                  <td style={{ padding: '20px 8px' }}>71.61%</td>
+                  <td style={{ padding: '20px 8px', color: 'var(--text-muted)' }}>Evaluated</td>
+                </tr>
+                <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', background: 'rgba(56, 189, 248, 0.04)' }}>
+                  <td style={{ padding: '20px 8px', color: '#38bdf8', fontWeight: '600' }}>3rd</td>
+                  <td style={{ padding: '20px 8px', color: '#38bdf8', fontWeight: '600' }}>
+                    Logistic Regression <span style={{ background: 'rgba(56, 189, 248, 0.2)', color: '#38bdf8', fontSize: '10px', padding: '2px 8px', borderRadius: '4px', letterSpacing: '0.5px', marginLeft: '6px' }}>ACTIVE API</span>
+                  </td>
+                  <td style={{ padding: '20px 8px', color: '#38bdf8', fontWeight: '700' }}>72.827%</td>
+                  <td style={{ padding: '20px 8px' }}>79.03%</td>
+                  <td style={{ padding: '20px 8px' }}>75.08%</td>
+                  <td style={{ padding: '20px 8px' }}>66.85%</td>
+                  <td style={{ padding: '20px 8px' }}>70.73%</td>
+                  <td style={{ padding: '20px 8px', color: '#38bdf8', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '6px' }}><CheckCircle2 size={16} /> Integrated & Serving</td>
+                </tr>
+                <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                  <td style={{ padding: '20px 8px', color: 'var(--text-muted)' }}>4th</td>
+                  <td style={{ padding: '20px 8px', color: '#e2e8f0' }}>K-Nearest Neighbors</td>
+                  <td style={{ padding: '20px 8px', color: '#10b981', fontWeight: '600' }}>72.667%</td>
+                  <td style={{ padding: '20px 8px' }}>78.63%</td>
+                  <td style={{ padding: '20px 8px' }}>73.91%</td>
+                  <td style={{ padding: '20px 8px' }}>68.52%</td>
+                  <td style={{ padding: '20px 8px' }}>71.11%</td>
+                  <td style={{ padding: '20px 8px', color: 'var(--text-muted)' }}>Evaluated</td>
+                </tr>
+                <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                  <td style={{ padding: '20px 8px', color: 'var(--text-muted)' }}>5th</td>
+                  <td style={{ padding: '20px 8px', color: '#e2e8f0' }}>Decision Tree</td>
+                  <td style={{ padding: '20px 8px', color: '#10b981', fontWeight: '600' }}>72.551%</td>
+                  <td style={{ padding: '20px 8px' }}>78.05%</td>
+                  <td style={{ padding: '20px 8px' }}>73.18%</td>
+                  <td style={{ padding: '20px 8px' }}>69.60%</td>
+                  <td style={{ padding: '20px 8px' }}>71.35%</td>
+                  <td style={{ padding: '20px 8px', color: 'var(--text-muted)' }}>Evaluated</td>
+                </tr>
+                <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                  <td style={{ padding: '20px 8px', color: 'var(--text-muted)' }}>6th</td>
+                  <td style={{ padding: '20px 8px', color: '#e2e8f0' }}>Gaussian Naive Bayes</td>
+                  <td style={{ padding: '20px 8px', color: '#10b981', fontWeight: '600' }}>70.958%</td>
+                  <td style={{ padding: '20px 8px' }}>77.67%</td>
+                  <td style={{ padding: '20px 8px' }}>75.66%</td>
+                  <td style={{ padding: '20px 8px' }}>60.23%</td>
+                  <td style={{ padding: '20px 8px' }}>67.07%</td>
+                  <td style={{ padding: '20px 8px', color: 'var(--text-muted)' }}>Evaluated</td>
+                </tr>
               </tbody>
             </table>
           </div>
