@@ -17,6 +17,47 @@ const fadeTransition = {
   transition: { duration: 0.3 }
 };
 
+function InputField({ label, value, onChange, min, max, unit }) {
+  return (
+    <div className="input-field">
+      <label>{label}</label>
+      <div className="input-wrapper">
+        <input 
+          type="number" 
+          value={value === undefined || value === null ? '' : value} 
+          min={min} 
+          max={max} 
+          onChange={(e) => {
+            const val = e.target.value;
+            onChange(val === '' ? '' : Number(val));
+          }} 
+        />
+        {unit && <span>{unit}</span>}
+      </div>
+    </div>
+  );
+}
+
+function Toggle({ label, value, onChange, options }) {
+  return (
+    <div className="toggle-group">
+      <span>{label}</span>
+      <div className="segmented-control">
+        {options.map((opt) => (
+          <button
+            key={opt.val}
+            type="button"
+            className={value === opt.val ? 'active' : ''}
+            onClick={() => onChange(opt.val)}
+          >
+            {opt.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Assessment() {
   const [form, setForm] = useState(initialForm);
   const [step, setStep] = useState(0);
@@ -33,11 +74,27 @@ export default function Assessment() {
     setStep(4);
     setStatus('loading');
     setError('');
+    
+    // Clean empty values to numerical defaults if left blank
+    const cleanPayload = {
+      age: form.age === '' ? 45 : Number(form.age),
+      gender: Number(form.gender) || 0,
+      height: form.height === '' ? 165 : Number(form.height),
+      weight: form.weight === '' ? 68 : Number(form.weight),
+      ap_hi: form.ap_hi === '' ? 120 : Number(form.ap_hi),
+      ap_lo: form.ap_lo === '' ? 80 : Number(form.ap_lo),
+      cholesterol: Number(form.cholesterol) || 0,
+      gluc: Number(form.gluc) || 0,
+      smoke: Number(form.smoke) || 0,
+      alco_1: Number(form.alco_1) || 0,
+      active_1: Number(form.active_1) !== undefined ? Number(form.active_1) : 1,
+    };
+
     try {
       const response = await fetch(`${API_URL}/predict`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify(cleanPayload),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.detail || 'Prediction failed.');
@@ -48,39 +105,6 @@ export default function Assessment() {
       setError(err.message.includes('fetch') ? 'Cannot reach API. Ensure Python server is running.' : err.message);
     }
   }
-
-  const InputField = ({ label, field, min, max, unit }) => (
-    <div className="input-field">
-      <label>{label}</label>
-      <div className="input-wrapper">
-        <input 
-          type="number" 
-          value={form[field]} 
-          min={min} max={max} 
-          onChange={(e) => setField(field, Number(e.target.value))} 
-        />
-        {unit && <span>{unit}</span>}
-      </div>
-    </div>
-  );
-
-  const Toggle = ({ label, field, options }) => (
-    <div className="toggle-group">
-      <span>{label}</span>
-      <div className="segmented-control">
-        {options.map((opt) => (
-          <button
-            key={opt.val}
-            type="button"
-            className={form[field] === opt.val ? 'active' : ''}
-            onClick={() => setField(field, opt.val)}
-          >
-            {opt.label}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
 
   return (
     <div className="main-container">
@@ -114,10 +138,10 @@ export default function Assessment() {
                   <motion.div key="step1" {...fadeTransition}>
                     <div className="step-title"><User size={24} /> Basic Profile</div>
                     <div className="form-grid">
-                      <InputField label="Age" field="age" min={18} max={100} unit="years" />
-                      <Toggle label="Biological Sex" field="gender" options={[{val: 0, label: 'Female'}, {val: 1, label: 'Male'}]} />
-                      <InputField label="Height" field="height" min={100} max={250} unit="cm" />
-                      <InputField label="Weight" field="weight" min={30} max={200} unit="kg" />
+                      <InputField label="Age" value={form.age} onChange={(v) => setField('age', v)} min={18} max={100} unit="years" />
+                      <Toggle label="Biological Sex" value={form.gender} onChange={(v) => setField('gender', v)} options={[{val: 0, label: 'Female'}, {val: 1, label: 'Male'}]} />
+                      <InputField label="Height" value={form.height} onChange={(v) => setField('height', v)} min={100} max={250} unit="cm" />
+                      <InputField label="Weight" value={form.weight} onChange={(v) => setField('weight', v)} min={30} max={200} unit="kg" />
                     </div>
                   </motion.div>
                 )}
@@ -126,8 +150,8 @@ export default function Assessment() {
                   <motion.div key="step2" {...fadeTransition}>
                     <div className="step-title"><Activity size={24} /> Blood Pressure</div>
                     <div className="form-grid">
-                      <InputField label="Systolic (High)" field="ap_hi" min={70} max={250} unit="mmHg" />
-                      <InputField label="Diastolic (Low)" field="ap_lo" min={40} max={150} unit="mmHg" />
+                      <InputField label="Systolic (High)" value={form.ap_hi} onChange={(v) => setField('ap_hi', v)} min={70} max={250} unit="mmHg" />
+                      <InputField label="Diastolic (Low)" value={form.ap_lo} onChange={(v) => setField('ap_lo', v)} min={40} max={150} unit="mmHg" />
                     </div>
                   </motion.div>
                 )}
@@ -136,13 +160,13 @@ export default function Assessment() {
                   <motion.div key="step3" {...fadeTransition}>
                     <div className="step-title"><HeartPulse size={24} /> Lifestyle & Markers</div>
                     <div className="form-grid single">
-                      <Toggle label="Cholesterol Level" field="cholesterol" options={[{val: 0, label: 'Normal'}, {val: 1, label: 'High'}, {val: 2, label: 'Very High'}]} />
-                      <Toggle label="Glucose Level" field="gluc" options={[{val: 0, label: 'Normal'}, {val: 1, label: 'High'}, {val: 2, label: 'Very High'}]} />
+                      <Toggle label="Cholesterol Level" value={form.cholesterol} onChange={(v) => setField('cholesterol', v)} options={[{val: 0, label: 'Normal'}, {val: 1, label: 'High'}, {val: 2, label: 'Very High'}]} />
+                      <Toggle label="Glucose Level" value={form.gluc} onChange={(v) => setField('gluc', v)} options={[{val: 0, label: 'Normal'}, {val: 1, label: 'High'}, {val: 2, label: 'Very High'}]} />
                     </div>
                     <div className="form-grid">
-                      <Toggle label="Smokes" field="smoke" options={[{val: 0, label: 'No'}, {val: 1, label: 'Yes'}]} />
-                      <Toggle label="Alcohol Intake" field="alco_1" options={[{val: 0, label: 'No'}, {val: 1, label: 'Yes'}]} />
-                      <Toggle label="Active" field="active_1" options={[{val: 0, label: 'No'}, {val: 1, label: 'Yes'}]} />
+                      <Toggle label="Smokes" value={form.smoke} onChange={(v) => setField('smoke', v)} options={[{val: 0, label: 'No'}, {val: 1, label: 'Yes'}]} />
+                      <Toggle label="Alcohol Intake" value={form.alco_1} onChange={(v) => setField('alco_1', v)} options={[{val: 0, label: 'No'}, {val: 1, label: 'Yes'}]} />
+                      <Toggle label="Active" value={form.active_1} onChange={(v) => setField('active_1', v)} options={[{val: 0, label: 'No'}, {val: 1, label: 'Yes'}]} />
                     </div>
                   </motion.div>
                 )}
