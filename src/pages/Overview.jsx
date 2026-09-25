@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Activity, Award, Zap, RotateCw } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import FoldText from '../components/FoldText';
+import FlipCard from '../components/FlipCard';
 
 const fadeTransition = {
   initial: { opacity: 0, y: 20 },
@@ -81,7 +82,7 @@ export default function Overview() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
-        style={{ width: '100%', maxWidth: '800px', marginBottom: '50px', position: 'relative' }}
+        style={{ width: '100%', maxWidth: '800px', marginBottom: '40px', position: 'relative' }}
       >
         <svg viewBox="0 0 800 60" style={{ width: '100%', height: '60px', overflow: 'visible' }}>
           <path 
@@ -111,37 +112,171 @@ export default function Overview() {
         />
       </motion.div>
 
+      {/* React Bits: 3D Interactive FlipCards */}
       <motion.div 
-        className="form-grid" 
-        style={{ marginTop: '40px', width: '100%' }}
+        style={{ marginTop: '48px', width: '100%', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '24px' }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
       >
-        <div className="glass-card" style={{ padding: '30px' }}>
-          <h3 style={{ marginBottom: '8px' }}>Risk Engine</h3>
-          <p style={{ color: 'var(--text-muted)', fontSize: '14px', marginBottom: '24px' }}>
-            Enter patient vitals and lifestyle indicators to get an instant probability score using our Logistic Regression model.
-          </p>
-        </div>
+        {/* Card 1: Risk Engine */}
+        <FlipCard
+          width={300}
+          height={330}
+          radius={20}
+          background="rgba(18, 24, 38, 0.85)"
+          glare={true}
+          tilt={true}
+          tiltMax={10}
+          hoverScale={1.03}
+          front={
+            <div style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                  <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: 'rgba(56, 189, 248, 0.15)', display: 'grid', placeItems: 'center' }}>
+                    <Activity size={22} color="#38bdf8" />
+                  </div>
+                  <span style={{ fontSize: '11px', fontWeight: '700', color: '#38bdf8', background: 'rgba(56, 189, 248, 0.1)', padding: '4px 8px', borderRadius: '6px' }}>
+                    Active AI
+                  </span>
+                </div>
+                <h3 style={{ fontSize: '19px', fontWeight: '700', marginBottom: '8px', color: '#ffffff' }}>Risk Engine</h3>
+                <p style={{ color: 'var(--text-muted)', fontSize: '13px', lineHeight: '1.6' }}>
+                  Evaluate 11 clinical vitals to get real-time cardiovascular probability inference in under 5ms.
+                </p>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#38bdf8', opacity: 0.9 }}>
+                <RotateCw size={13} /> Click or drag to inspect
+              </div>
+            </div>
+          }
+          back={
+            <div style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: 'linear-gradient(145deg, rgba(22, 30, 48, 0.95), rgba(12, 17, 28, 0.98))' }}>
+              <div>
+                <span style={{ fontSize: '11px', fontWeight: '700', color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  Production Model
+                </span>
+                <h3 style={{ fontSize: '18px', fontWeight: '700', margin: '6px 0 10px', color: '#ffffff' }}>Logistic Regression</h3>
+                <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '10px', marginBottom: '12px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Tested Accuracy</div>
+                  <div style={{ fontSize: '20px', fontWeight: '800', color: '#38bdf8' }}>72.83%</div>
+                </div>
+                <p style={{ color: 'var(--text-muted)', fontSize: '12px', lineHeight: '1.5' }}>
+                  Normalized with standard scalers across 68k records.
+                </p>
+              </div>
+              <Link to="/assessment" className="btn-primary" style={{ justifyContent: 'center', fontSize: '13px', padding: '10px 16px' }}>
+                Start Assessment <ArrowRight size={15} />
+              </Link>
+            </div>
+          }
+        />
 
-        <div className="glass-card" style={{ padding: '30px' }}>
-          <h3 style={{ marginBottom: '8px' }}>Account Settings</h3>
-          <p style={{ color: 'var(--text-muted)', fontSize: '14px', marginBottom: '24px' }}>
-            Manage your session and log out of the platform securely.
-          </p>
-          <button 
-            onClick={() => {
-              localStorage.removeItem('token');
-              localStorage.removeItem('user_name');
-              window.location.href = '/login';
-            }} 
-            className="btn-secondary" 
-            style={{ display: 'inline-flex', padding: 0, color: '#e11d48' }}
-          >
-            Log out now
-          </button>
-        </div>
+        {/* Card 2: Architecture & Benchmark */}
+        <FlipCard
+          width={300}
+          height={330}
+          radius={20}
+          background="rgba(18, 24, 38, 0.85)"
+          glare={true}
+          tilt={true}
+          tiltMax={10}
+          hoverScale={1.03}
+          front={
+            <div style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                  <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: 'rgba(16, 185, 129, 0.15)', display: 'grid', placeItems: 'center' }}>
+                    <Award size={22} color="#10b981" />
+                  </div>
+                  <span style={{ fontSize: '11px', fontWeight: '700', color: '#10b981', background: 'rgba(16, 185, 129, 0.1)', padding: '4px 8px', borderRadius: '6px' }}>
+                    6 Classifiers
+                  </span>
+                </div>
+                <h3 style={{ fontSize: '19px', fontWeight: '700', marginBottom: '8px', color: '#ffffff' }}>Architecture</h3>
+                <p style={{ color: 'var(--text-muted)', fontSize: '13px', lineHeight: '1.6' }}>
+                  Multi-model benchmark comparing Random Forest, GBDT, Naive Bayes, KNN, and Decision Trees.
+                </p>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#10b981', opacity: 0.9 }}>
+                <RotateCw size={13} /> Click or drag to inspect
+              </div>
+            </div>
+          }
+          back={
+            <div style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: 'linear-gradient(145deg, rgba(22, 30, 48, 0.95), rgba(12, 17, 28, 0.98))' }}>
+              <div>
+                <span style={{ fontSize: '11px', fontWeight: '700', color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  Test Set Split
+                </span>
+                <h3 style={{ fontSize: '18px', fontWeight: '700', margin: '6px 0 10px', color: '#ffffff' }}>Validation Metrics</h3>
+                <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '10px', marginBottom: '12px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Top Benchmark ROC-AUC</div>
+                  <div style={{ fontSize: '20px', fontWeight: '800', color: '#10b981' }}>80.08%</div>
+                </div>
+                <p style={{ color: 'var(--text-muted)', fontSize: '12px', lineHeight: '1.5' }}>
+                  Evaluated on 13,749 held-out clinical records.
+                </p>
+              </div>
+              <Link to="/architecture" className="btn-secondary" style={{ justifyContent: 'center', fontSize: '13px', padding: '10px 16px', background: 'rgba(255,255,255,0.06)' }}>
+                View Full Benchmark →
+              </Link>
+            </div>
+          }
+        />
+
+        {/* Card 3: Deep Insights */}
+        <FlipCard
+          width={300}
+          height={330}
+          radius={20}
+          background="rgba(18, 24, 38, 0.85)"
+          glare={true}
+          tilt={true}
+          tiltMax={10}
+          hoverScale={1.03}
+          front={
+            <div style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                  <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: 'rgba(168, 85, 247, 0.15)', display: 'grid', placeItems: 'center' }}>
+                    <Zap size={22} color="#a855f7" />
+                  </div>
+                  <span style={{ fontSize: '11px', fontWeight: '700', color: '#a855f7', background: 'rgba(168, 85, 247, 0.1)', padding: '4px 8px', borderRadius: '6px' }}>
+                    Clinical Correlates
+                  </span>
+                </div>
+                <h3 style={{ fontSize: '19px', fontWeight: '700', marginBottom: '8px', color: '#ffffff' }}>Data Insights</h3>
+                <p style={{ color: 'var(--text-muted)', fontSize: '13px', lineHeight: '1.6' }}>
+                  Detailed analysis of systolic blood pressure, age, cholesterol, and BMI correlation weights.
+                </p>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#a855f7', opacity: 0.9 }}>
+                <RotateCw size={13} /> Click or drag to inspect
+              </div>
+            </div>
+          }
+          back={
+            <div style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: 'linear-gradient(145deg, rgba(22, 30, 48, 0.95), rgba(12, 17, 28, 0.98))' }}>
+              <div>
+                <span style={{ fontSize: '11px', fontWeight: '700', color: '#a855f7', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  Top Predictor
+                </span>
+                <h3 style={{ fontSize: '18px', fontWeight: '700', margin: '6px 0 10px', color: '#ffffff' }}>Systolic BP (ap_hi)</h3>
+                <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '10px', marginBottom: '12px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Primary Risk Multiplier</div>
+                  <div style={{ fontSize: '20px', fontWeight: '800', color: '#e11d48' }}>High Weight</div>
+                </div>
+                <p style={{ color: 'var(--text-muted)', fontSize: '12px', lineHeight: '1.5' }}>
+                  Exponential curve when ap_hi exceeds 130 mmHg.
+                </p>
+              </div>
+              <Link to="/insights" className="btn-secondary" style={{ justifyContent: 'center', fontSize: '13px', padding: '10px 16px', background: 'rgba(255,255,255,0.06)' }}>
+                Explore Correlates →
+              </Link>
+            </div>
+          }
+        />
       </motion.div>
     </div>
   );
