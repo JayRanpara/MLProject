@@ -59,14 +59,14 @@ export default function Info() {
                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', background: 'rgba(16, 185, 129, 0.03)' }}>
                   <td style={{ padding: '20px 8px' }}><div style={{ width: '28px', height: '28px', background: 'rgba(16, 185, 129, 0.15)', borderRadius: '50%', display: 'grid', placeItems: 'center' }}><Award size={16} color="#10b981" /></div></td>
                   <td style={{ padding: '20px 8px', fontWeight: '600', color: '#fff', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    Random Forest <span style={{ background: '#10b981', color: '#fff', fontSize: '10px', padding: '2px 8px', borderRadius: '4px', letterSpacing: '0.5px' }}>CHAMPION</span>
+                    Random Forest <span style={{ background: '#10b981', color: '#fff', fontSize: '10px', padding: '2px 8px', borderRadius: '4px', letterSpacing: '0.5px' }}>ACTIVE PRIMARY & CHAMPION</span>
                   </td>
                   <td style={{ padding: '20px 8px', color: '#10b981', fontWeight: '700' }}>73.205%</td>
                   <td style={{ padding: '20px 8px', fontWeight: '600' }}>80.03%</td>
                   <td style={{ padding: '20px 8px', fontWeight: '600' }}>74.79%</td>
                   <td style={{ padding: '20px 8px', fontWeight: '600' }}>68.54%</td>
                   <td style={{ padding: '20px 8px', fontWeight: '600' }}>71.53%</td>
-                  <td style={{ padding: '20px 8px', color: '#10b981', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '6px' }}><CheckCircle2 size={16} /> Top Benchmark</td>
+                  <td style={{ padding: '20px 8px', color: '#10b981', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '6px' }}><CheckCircle2 size={16} /> Active Serving Model</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                   <td style={{ padding: '20px 8px', color: 'var(--text-muted)' }}>2nd</td>
@@ -81,14 +81,14 @@ export default function Info() {
                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', background: 'rgba(56, 189, 248, 0.04)' }}>
                   <td style={{ padding: '20px 8px', color: '#38bdf8', fontWeight: '600' }}>3rd</td>
                   <td style={{ padding: '20px 8px', color: '#38bdf8', fontWeight: '600' }}>
-                    Logistic Regression <span style={{ background: 'rgba(56, 189, 248, 0.2)', color: '#38bdf8', fontSize: '10px', padding: '2px 8px', borderRadius: '4px', letterSpacing: '0.5px', marginLeft: '6px' }}>ACTIVE API</span>
+                    Logistic Regression <span style={{ background: 'rgba(56, 189, 248, 0.2)', color: '#38bdf8', fontSize: '10px', padding: '2px 8px', borderRadius: '4px', letterSpacing: '0.5px', marginLeft: '6px' }}>DUAL CONSENSUS</span>
                   </td>
                   <td style={{ padding: '20px 8px', color: '#38bdf8', fontWeight: '700' }}>72.827%</td>
                   <td style={{ padding: '20px 8px' }}>79.03%</td>
                   <td style={{ padding: '20px 8px' }}>75.08%</td>
                   <td style={{ padding: '20px 8px' }}>66.85%</td>
                   <td style={{ padding: '20px 8px' }}>70.73%</td>
-                  <td style={{ padding: '20px 8px', color: '#38bdf8', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '6px' }}><CheckCircle2 size={16} /> Integrated & Serving</td>
+                  <td style={{ padding: '20px 8px', color: '#38bdf8', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '6px' }}><CheckCircle2 size={16} /> Bundled in API</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                   <td style={{ padding: '20px 8px', color: 'var(--text-muted)' }}>4th</td>

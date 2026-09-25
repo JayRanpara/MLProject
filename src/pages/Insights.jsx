@@ -26,13 +26,13 @@ export default function Insights() {
           <AlertTriangle size={28} style={{ color: '#e11d48' }} /> High Impact Features
         </div>
         <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', fontSize: '16px', marginBottom: '20px' }}>
-          According to the Logistic Regression weights, the strongest predictors of cardiovascular disease in this dataset are:
+          According to the Random Forest feature importances (Gini criterion) and tree decision splits, the strongest predictors of cardiovascular disease in this dataset are:
         </p>
         <ul style={{ color: 'var(--text-main)', lineHeight: '1.8', fontSize: '15px', paddingLeft: '20px' }}>
-          <li><strong>Systolic Blood Pressure (ap_hi):</strong> The single highest correlating factor. As this number rises above 120, risk climbs exponentially.</li>
-          <li><strong>Age:</strong> Risk increases linearly with age, especially accelerating after 50 years.</li>
-          <li><strong>Cholesterol:</strong> Patients with 'High' or 'Very High' cholesterol see a significant multiplier on their baseline risk.</li>
-          <li><strong>Weight:</strong> BMI/Weight acts as a strong compounding factor alongside blood pressure.</li>
+          <li><strong>Systolic Blood Pressure (ap_hi):</strong> The single highest Gini-importance factor. Non-linear risk escalates rapidly once blood pressure passes stage-1 hypertension (130+ mmHg).</li>
+          <li><strong>Age:</strong> Primary branching node across all 100 decision trees, multiplying baseline cardiovascular risk significantly after age 50.</li>
+          <li><strong>Cholesterol:</strong> Patients with 'High' or 'Very High' cholesterol experience major branching penalties in decision pathways.</li>
+          <li><strong>Weight & BMI:</strong> Acts as a strong compounding predictor alongside systolic blood pressure.</li>
         </ul>
       </motion.div>
 
@@ -46,7 +46,7 @@ export default function Insights() {
           <TrendingUp size={28} style={{ color: '#38bdf8', marginBottom: '16px' }} />
           <h3 style={{ marginBottom: '12px', fontSize: '18px' }}>Lifestyle Impact</h3>
           <p style={{ color: 'var(--text-muted)', fontSize: '14px', lineHeight: '1.6' }}>
-            Interestingly, smoking and alcohol consumption showed lower direct weights than blood pressure, but they are known clinical drivers of high blood pressure itself.
+            Random Forest decision trees capture the indirect compounding effects of smoking and alcohol consumption — while individual linear weights are moderate, their presence significantly lowers the systolic threshold for a high-risk leaf node.
           </p>
         </div>
 

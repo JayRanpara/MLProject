@@ -128,7 +128,11 @@ export default function Assessment() {
         {step > 0 && step < 4 && (
           <motion.div key="wizard" {...fadeTransition}>
             {/* Model Architecture Toggle */}
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px', gap: '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: '#10b981', background: 'rgba(16, 185, 129, 0.1)', padding: '3px 12px', borderRadius: '999px', fontWeight: '600', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 6px #10b981' }} />
+                Primary Model: 100-Tree Random Forest (73.21% Test Acc)
+              </div>
               <div style={{ background: 'rgba(255,255,255,0.03)', padding: '4px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', gap: '4px' }}>
                 <button
                   type="button"
@@ -142,10 +146,11 @@ export default function Assessment() {
                     fontSize: '12px',
                     fontWeight: '600',
                     cursor: 'pointer',
-                    transition: 'all 0.2s'
+                    transition: 'all 0.2s',
+                    boxShadow: modelType === 'rf' ? '0 2px 8px rgba(16, 185, 129, 0.3)' : 'none'
                   }}
                 >
-                  🌲 Random Forest (73.2%)
+                  🌲 Random Forest (Champion)
                 </button>
                 <button
                   type="button"
@@ -162,7 +167,7 @@ export default function Assessment() {
                     transition: 'all 0.2s'
                   }}
                 >
-                  📈 Logistic Regression (72.8%)
+                  📈 Logistic Regression
                 </button>
                 <button
                   type="button"
@@ -306,12 +311,21 @@ export default function Assessment() {
                       Cross-Model Consensus
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px' }}>
-                      <div style={{ background: 'rgba(16, 185, 129, 0.05)', padding: '10px 14px', borderRadius: '10px', border: '1px solid rgba(16, 185, 129, 0.15)' }}>
-                        <div style={{ fontSize: '11px', color: '#10b981', fontWeight: '700' }}>🌲 Random Forest</div>
+                      <div style={{ 
+                        background: modelType === 'rf' ? 'rgba(16, 185, 129, 0.12)' : 'rgba(16, 185, 129, 0.05)', 
+                        padding: '10px 14px', 
+                        borderRadius: '10px', 
+                        border: modelType === 'rf' ? '1px solid #10b981' : '1px solid rgba(16, 185, 129, 0.2)',
+                        boxShadow: modelType === 'rf' ? '0 0 12px rgba(16, 185, 129, 0.2)' : 'none'
+                      }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div style={{ fontSize: '11px', color: '#10b981', fontWeight: '700' }}>🌲 Random Forest</div>
+                          <span style={{ fontSize: '9px', background: '#10b981', color: '#ffffff', padding: '1px 5px', borderRadius: '4px', fontWeight: '700' }}>CHAMPION</span>
+                        </div>
                         <div style={{ fontSize: '18px', fontWeight: '800', color: '#ffffff', marginTop: '2px' }}>
                           {Math.round(result.models.random_forest.risk_probability * 100)}%
                         </div>
-                        <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>73.21% test acc</div>
+                        <div style={{ fontSize: '10px', color: '#10b981' }}>73.21% test acc</div>
                       </div>
 
                       <div style={{ background: 'rgba(56, 189, 248, 0.05)', padding: '10px 14px', borderRadius: '10px', border: '1px solid rgba(56, 189, 248, 0.15)' }}>
