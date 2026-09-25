@@ -55,7 +55,7 @@ function PublicRoute({ children }) {
   return children;
 }
 
-import ColorBends from './components/ColorBends';
+import FloatingLines from './components/FloatingLines';
 import CursorGrid from './components/CursorGrid';
 
 export default function App() {
@@ -70,22 +70,21 @@ export default function App() {
   return (
     <BrowserRouter>
       <main className="app-shell" style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
-        {/* React Bits: ColorBends Shader Background */}
-        <div style={{ position: 'fixed', inset: 0, zIndex: 0, opacity: 0.38, pointerEvents: 'none' }}>
-          <ColorBends
-            colors={["#e11d48", "#1d4ed8", "#38bdf8", "#0284c7"]}
-            rotation={45}
-            speed={0.12}
-            scale={1.2}
-            frequency={1}
-            warpStrength={0.8}
-            mouseInfluence={0.4}
-            noise={0.08}
-            parallax={0.25}
-            iterations={1}
-            intensity={1.3}
-            bandWidth={7}
-            transparent
+        {/* React Bits: FloatingLines Interactive Wave Background */}
+        <div style={{ position: 'fixed', inset: 0, zIndex: 0, opacity: 0.85, pointerEvents: 'none' }}>
+          <FloatingLines
+            enabledWaves={['top', 'middle', 'bottom']}
+            lineCount={[12, 16, 22]}
+            lineDistance={[7, 5, 4]}
+            bendRadius={5.0}
+            bendStrength={-0.5}
+            interactive={true}
+            parallax={true}
+            parallaxStrength={0.25}
+            animationSpeed={0.8}
+            linesGradient={["#e11d48", "#38bdf8", "#6366f1", "#0284c7"]}
+            mixBlendMode="screen"
+            backgroundColor="#0b0f19"
           />
         </div>
 
