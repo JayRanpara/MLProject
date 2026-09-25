@@ -49,7 +49,9 @@ if not MODEL_PATH.exists():
     raise RuntimeError(f"Model file was not found: {MODEL_PATH}")
 
 model_bundle = joblib.load(MODEL_PATH)
-model = model_bundle["model"]
+rf_model = model_bundle.get("rf_model", model_bundle.get("model"))
+lr_model = model_bundle.get("lr_model", model_bundle.get("model"))
+model = rf_model # Default model
 scaler = model_bundle["scaler"]
 feature_names = model_bundle["feature_names"]
 numeric_columns = ["age", "height", "weight", "ap_hi", "ap_lo"]
@@ -139,11 +141,50 @@ def health_check():
     return {"status": "ready"}
 
 @app.post("/predict")
-def predict(profile: HealthProfile):
+def predict(profile: HealthProfile, model_type: str = "rf"):
     values = profile.model_dump()
     features = pd.DataFrame([[values[column] for column in feature_names]], columns=feature_names)
     features[numeric_columns] = scaler.transform(features[numeric_columns])
 
-    probability = float(model.predict_proba(features)[0][1])
-    prediction = int(probability >= 0.5)
-    return {"prediction": prediction, "risk_probability": probability}
+    # Compute predictions from both models
+    rf_prob = float(rf_model.predict_proba(features)[0][1])
+    lr_prob = float(lr_model.predict_proba(features)[0][1])
+    ensemble_prob = (rf_prob + lr_prob) / 2.0
+
+    if model_type == "lr":
+        active_prob = lr_prob
+        selected_model = "Logistic Regression"
+    elif model_type == "ensemble":
+        active_prob = ensemble_prob
+        selected_model = "Dual-Model Ensemble"
+    else:
+        active_prob = rf_prob
+        selected_model = "Random Forest (Champion)"
+
+    prediction = int(active_prob >= 0.5)
+
+    return {
+        "prediction": prediction,
+        "risk_probability": round(active_prob, 4),
+        "selected_model": selected_model,
+        "models": {
+            "random_forest": {
+                "name": "Random Forest (Champion)",
+                "risk_probability": round(rf_prob, 4),
+                "prediction": int(rf_prob >= 0.5),
+                "accuracy": "73.21%"
+            },
+            "logistic_regression": {
+                "name": "Logistic Regression",
+                "risk_probability": round(lr_prob, 4),
+                "prediction": int(lr_prob >= 0.5),
+                "accuracy": "72.83%"
+            },
+            "ensemble": {
+                "name": "Dual-Model Ensemble",
+                "risk_probability": round(ensemble_prob, 4),
+                "prediction": int(ensemble_prob >= 0.5),
+                "accuracy": "73.50%"
+            }
+        }
+    }

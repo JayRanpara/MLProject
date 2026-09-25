@@ -3,7 +3,6 @@ import { ArrowRight, Activity, Award, Zap, RotateCw, Cpu, ShieldCheck, Binary, S
 import { Link } from 'react-router-dom';
 import FoldText from '../components/FoldText';
 import FlipCard from '../components/FlipCard';
-import ScrollExpand from '../components/ScrollExpand';
 
 const fadeTransition = {
   initial: { opacity: 0, y: 20 },
@@ -99,37 +98,19 @@ export default function Overview() {
         </svg>
       </motion.div>
 
-      {/* React Bits: ScrollExpand with Pumping Glowing Heart */}
-      <div style={{ width: '100%', maxWidth: '1000px', height: '620px', margin: '20px 0' }}>
-        <ScrollExpand
-          src="/ai-heart.jpg"
-          alt="AI Cardiovascular Visualization"
-          title="CardioCare Neural Core"
-          scrollHint="Scroll down to expand view"
-          useWindowScroll={true}
-          startWidth={70}
-          startHeight={72}
-          startRadius={24}
-          endRadius={16}
-          mediaZoom={1.25}
-          scrollDistance={0.8}
-          holdDistance={0.2}
-          mediaClassName="heart-pump"
-          style={{ width: '100%', height: '100%' }}
-        >
-          <div style={{ maxWidth: '650px' }}>
-            <span style={{ fontSize: '12px', fontWeight: '800', color: '#38bdf8', letterSpacing: '1px', textTransform: 'uppercase', background: 'rgba(56,189,248,0.15)', padding: '4px 10px', borderRadius: '6px' }}>
-              Real-Time Hemodynamic Core
-            </span>
-            <h2 style={{ fontSize: '30px', fontWeight: '800', margin: '12px 0 8px', color: '#ffffff', textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}>
-              Cardiovascular In-Memory Pipeline
-            </h2>
-            <p style={{ fontSize: '15px', color: '#e2e8f0', lineHeight: '1.6', textShadow: '0 2px 14px rgba(0,0,0,0.8)' }}>
-              Simultaneously evaluates 11 bio-markers across 6 classification architectures to isolate arterial disease probabilities.
-            </p>
-          </div>
-        </ScrollExpand>
-      </div>
+      <motion.div 
+        className="glass-card" 
+        style={{ padding: '0', overflow: 'hidden', borderRadius: '24px', width: '100%', border: '1px solid rgba(255,255,255,0.05)' }}
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.6 }}
+      >
+        <img 
+          src="/ai-heart.jpg" 
+          alt="AI Cardiovascular Visualization" 
+          style={{ width: '100%', height: 'auto', display: 'block' }} 
+        />
+      </motion.div>
 
       {/* React Bits: 3D Interactive FlipCards */}
       <motion.div 

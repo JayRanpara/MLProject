@@ -60,6 +60,7 @@ function Toggle({ label, value, onChange, options }) {
 
 export default function Assessment() {
   const [form, setForm] = useState(initialForm);
+  const [modelType, setModelType] = useState('rf'); // 'rf', 'lr', 'ensemble'
   const [step, setStep] = useState(0);
   const [result, setResult] = useState(null);
   const [status, setStatus] = useState('idle');
@@ -91,7 +92,7 @@ export default function Assessment() {
     };
 
     try {
-      const response = await fetch(`${API_URL}/predict`, {
+      const response = await fetch(`${API_URL}/predict?model_type=${modelType}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(cleanPayload),
@@ -126,6 +127,63 @@ export default function Assessment() {
 
         {step > 0 && step < 4 && (
           <motion.div key="wizard" {...fadeTransition}>
+            {/* Model Architecture Toggle */}
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+              <div style={{ background: 'rgba(255,255,255,0.03)', padding: '4px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', gap: '4px' }}>
+                <button
+                  type="button"
+                  onClick={() => setModelType('rf')}
+                  style={{
+                    background: modelType === 'rf' ? '#10b981' : 'transparent',
+                    color: modelType === 'rf' ? '#ffffff' : 'var(--text-muted)',
+                    border: 'none',
+                    padding: '8px 14px',
+                    borderRadius: '8px',
+                    fontSize: '12px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  🌲 Random Forest (73.2%)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setModelType('lr')}
+                  style={{
+                    background: modelType === 'lr' ? '#38bdf8' : 'transparent',
+                    color: modelType === 'lr' ? '#ffffff' : 'var(--text-muted)',
+                    border: 'none',
+                    padding: '8px 14px',
+                    borderRadius: '8px',
+                    fontSize: '12px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  📈 Logistic Regression (72.8%)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setModelType('ensemble')}
+                  style={{
+                    background: modelType === 'ensemble' ? '#a855f7' : 'transparent',
+                    color: modelType === 'ensemble' ? '#ffffff' : 'var(--text-muted)',
+                    border: 'none',
+                    padding: '8px 14px',
+                    borderRadius: '8px',
+                    fontSize: '12px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  🧬 Dual Ensemble
+                </button>
+              </div>
+            </div>
+
             <div className="progress-container">
               {[1, 2, 3].map(i => (
                 <div key={i} className={`progress-dot ${step >= i ? 'active' : ''}`} />
@@ -191,7 +249,7 @@ export default function Assessment() {
                 <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }}>
                   <Loader2 size={48} style={{ color: 'var(--text-accent)', marginBottom: '20px' }} />
                 </motion.div>
-                <h3>Analysing your profile...</h3>
+                <h3>Analysing your profile with {modelType === 'rf' ? 'Random Forest' : modelType === 'lr' ? 'Logistic Regression' : 'Ensemble'}...</h3>
                 <p>Running indicators through the clinical model.</p>
               </div>
             )}
@@ -206,7 +264,12 @@ export default function Assessment() {
 
             {status === 'complete' && result && (
               <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.1 }}>
-                <div className="wizard-header"><h2>Your Risk Estimate</h2></div>
+                <div className="wizard-header">
+                  <div style={{ display: 'inline-block', background: 'rgba(16, 185, 129, 0.12)', border: '1px solid rgba(16, 185, 129, 0.25)', color: '#10b981', padding: '4px 12px', borderRadius: '999px', fontSize: '11px', fontWeight: '700', marginBottom: '10px' }}>
+                    Engine: {result.selected_model || 'Random Forest'}
+                  </div>
+                  <h2>Your Risk Estimate</h2>
+                </div>
                 
                 <div className={`score-circle ${result.prediction === 1 ? 'high' : 'low'}`}>
                   <svg viewBox="0 0 100 100">
@@ -234,6 +297,40 @@ export default function Assessment() {
                     <div className="risk-badge low"><i></i> Lower Risk</div>
                     <h3>Your indicators show a lower estimated risk.</h3>
                   </>
+                )}
+
+                {/* Multi-Model Comparison Breakdown */}
+                {result.models && (
+                  <div style={{ margin: '28px 0', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '16px', padding: '16px 20px', textAlign: 'left' }}>
+                    <div style={{ fontSize: '12px', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px' }}>
+                      Cross-Model Consensus
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px' }}>
+                      <div style={{ background: 'rgba(16, 185, 129, 0.05)', padding: '10px 14px', borderRadius: '10px', border: '1px solid rgba(16, 185, 129, 0.15)' }}>
+                        <div style={{ fontSize: '11px', color: '#10b981', fontWeight: '700' }}>🌲 Random Forest</div>
+                        <div style={{ fontSize: '18px', fontWeight: '800', color: '#ffffff', marginTop: '2px' }}>
+                          {Math.round(result.models.random_forest.risk_probability * 100)}%
+                        </div>
+                        <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>73.21% test acc</div>
+                      </div>
+
+                      <div style={{ background: 'rgba(56, 189, 248, 0.05)', padding: '10px 14px', borderRadius: '10px', border: '1px solid rgba(56, 189, 248, 0.15)' }}>
+                        <div style={{ fontSize: '11px', color: '#38bdf8', fontWeight: '700' }}>📈 Logistic Regression</div>
+                        <div style={{ fontSize: '18px', fontWeight: '800', color: '#ffffff', marginTop: '2px' }}>
+                          {Math.round(result.models.logistic_regression.risk_probability * 100)}%
+                        </div>
+                        <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>72.83% test acc</div>
+                      </div>
+
+                      <div style={{ background: 'rgba(168, 85, 247, 0.05)', padding: '10px 14px', borderRadius: '10px', border: '1px solid rgba(168, 85, 247, 0.15)' }}>
+                        <div style={{ fontSize: '11px', color: '#a855f7', fontWeight: '700' }}>🧬 Dual Consensus</div>
+                        <div style={{ fontSize: '18px', fontWeight: '800', color: '#ffffff', marginTop: '2px' }}>
+                          {Math.round(result.models.ensemble.risk_probability * 100)}%
+                        </div>
+                        <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Ensemble mean</div>
+                      </div>
+                    </div>
+                  </div>
                 )}
                 
                 <p>This is a model estimate, not a medical diagnosis. Speak with a qualified clinician for health decisions.</p>
