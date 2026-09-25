@@ -7,6 +7,7 @@ import Assessment from './pages/Assessment';
 import InfoPage from './pages/Info';
 import Overview from './pages/Overview';
 import Insights from './pages/Insights';
+import FloatingLines from './components/FloatingLines';
 
 function Navigation({ theme, toggleTheme }) {
   const location = useLocation();
@@ -55,9 +56,6 @@ function PublicRoute({ children }) {
   return children;
 }
 
-import FloatingLines from './components/FloatingLines';
-import CursorGrid from './components/CursorGrid';
-
 export default function App() {
   const [theme, setTheme] = useState('dark');
 
@@ -69,41 +67,25 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <main className="app-shell" style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
-        {/* React Bits: FloatingLines Interactive Wave Background */}
-        <div style={{ position: 'fixed', inset: 0, zIndex: 0, opacity: 0.85, pointerEvents: 'none' }}>
+      <main className="app-shell" style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden', background: '#070a13' }}>
+        {/* React Bits: Pure FloatingLines Background (Only FloatingLines Remains) */}
+        <div style={{ position: 'fixed', inset: 0, zIndex: 0, opacity: 0.5, pointerEvents: 'none' }}>
           <FloatingLines
             enabledWaves={['top', 'middle', 'bottom']}
-            lineCount={[12, 16, 22]}
-            lineDistance={[7, 5, 4]}
-            bendRadius={5.0}
-            bendStrength={-0.5}
+            lineCount={[8, 12, 16]}
+            lineDistance={[6, 5, 4]}
+            topWavePosition={{ x: 10.0, y: 0.9, rotate: -0.3 }}
+            middleWavePosition={{ x: 6.0, y: -0.5, rotate: 0.2 }}
+            bottomWavePosition={{ x: 2.0, y: -0.9, rotate: 0.35 }}
+            bendRadius={4.0}
+            bendStrength={-0.35}
             interactive={true}
             parallax={true}
-            parallaxStrength={0.25}
-            animationSpeed={0.8}
-            linesGradient={["#e11d48", "#38bdf8", "#6366f1", "#0284c7"]}
+            parallaxStrength={0.2}
+            animationSpeed={0.6}
+            linesGradient={["#e11d48", "#2563eb", "#38bdf8", "#0284c7"]}
             mixBlendMode="screen"
-            backgroundColor="#0b0f19"
-          />
-        </div>
-
-        {/* React Bits: Interactive Cursor Grid on hover/click */}
-        <div style={{ position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none' }}>
-          <CursorGrid
-            cellSize={60}
-            color="#38bdf8"
-            radius={150}
-            falloff="smooth"
-            holdTime={300}
-            fadeDuration={600}
-            lineWidth={1.1}
-            maxOpacity={0.35}
-            fillOpacity={0.05}
-            gridOpacity={0.02}
-            cellRadius={4}
-            clickPulse={true}
-            pulseSpeed={700}
+            backgroundColor="#070a13"
           />
         </div>
         
