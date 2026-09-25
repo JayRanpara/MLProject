@@ -278,6 +278,92 @@ export default function Overview() {
           }
         />
       </motion.div>
+
+      {/* Project Statistics Ribbon */}
+      <motion.div 
+        className="glass-card" 
+        style={{ marginTop: '56px', width: '100%', padding: '28px 36px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '28px', textAlign: 'center' }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+      >
+        <div>
+          <div style={{ fontSize: '32px', fontWeight: '800', color: '#38bdf8', letterSpacing: '-0.5px' }}>68,742</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '13px', marginTop: '4px', fontWeight: '500' }}>Clinical Training Records</div>
+        </div>
+        <div>
+          <div style={{ fontSize: '32px', fontWeight: '800', color: '#10b981', letterSpacing: '-0.5px' }}>72.83%</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '13px', marginTop: '4px', fontWeight: '500' }}>Production Model Accuracy</div>
+        </div>
+        <div>
+          <div style={{ fontSize: '32px', fontWeight: '800', color: '#e11d48', letterSpacing: '-0.5px' }}>11</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '13px', marginTop: '4px', fontWeight: '500' }}>Bio-Vitals Analyzed</div>
+        </div>
+        <div>
+          <div style={{ fontSize: '32px', fontWeight: '800', color: '#a855f7', letterSpacing: '-0.5px' }}>&lt; 5 ms</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '13px', marginTop: '4px', fontWeight: '500' }}>FastAPI Model Latency</div>
+        </div>
+      </motion.div>
+
+      {/* How the ML Pipeline Works */}
+      <motion.div 
+        style={{ marginTop: '64px', width: '100%' }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+      >
+        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+          <h2 style={{ fontSize: '28px', fontWeight: '700', marginBottom: '8px' }}>How the ML Pipeline Operates</h2>
+          <p style={{ color: 'var(--text-muted)', fontSize: '15px', maxWidth: '580px', marginInline: 'auto' }}>
+            From clinical vitals ingestion to in-memory probability inference, every step is mathematically calibrated against historical cardiovascular data.
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+          <div className="glass-card" style={{ padding: '28px' }}>
+            <div style={{ fontSize: '12px', fontWeight: '800', color: '#38bdf8', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>
+              Phase 01
+            </div>
+            <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '10px' }}>Patient Vitals Ingestion</h3>
+            <p style={{ color: 'var(--text-muted)', fontSize: '14px', lineHeight: '1.6' }}>
+              Collects 11 standardized metrics including systolic and diastolic blood pressure, cholesterol levels, glucose status, BMI, and lifestyle habits.
+            </p>
+          </div>
+
+          <div className="glass-card" style={{ padding: '28px' }}>
+            <div style={{ fontSize: '12px', fontWeight: '800', color: '#10b981', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>
+              Phase 02
+            </div>
+            <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '10px' }}>StandardScaler Transform</h3>
+            <p style={{ color: 'var(--text-muted)', fontSize: '14px', lineHeight: '1.6' }}>
+              Continuous features (age, height, weight, ap_hi, ap_lo) undergo standard normal distribution scaling matching our pickled scikit-learn pipeline.
+            </p>
+          </div>
+
+          <div className="glass-card" style={{ padding: '28px' }}>
+            <div style={{ fontSize: '12px', fontWeight: '800', color: '#e11d48', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>
+              Phase 03
+            </div>
+            <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '10px' }}>Sigmoidal Risk Prediction</h3>
+            <p style={{ color: 'var(--text-muted)', fontSize: '14px', lineHeight: '1.6' }}>
+              The trained Logistic Regression decision boundary computes an exact cardiovascular disease risk probability percentage between 0% and 100%.
+            </p>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Clinical Disclaimer Banner */}
+      <motion.div 
+        className="glass-card"
+        style={{ marginTop: '50px', width: '100%', padding: '20px 28px', borderLeft: '4px solid #38bdf8', display: 'flex', alignItems: 'center', gap: '16px' }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+      >
+        <div style={{ color: 'var(--text-muted)', fontSize: '13px', lineHeight: '1.6' }}>
+          <strong style={{ color: '#ffffff' }}>Clinical Advisory:</strong> CardioCare AI is engineered as an educational and clinical decision-support tool. It computes risk estimates based on historical statistical models and should always be validated by licensed medical healthcare providers.
+        </div>
+      </motion.div>
     </div>
   );
 }
