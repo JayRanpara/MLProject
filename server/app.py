@@ -1,3 +1,4 @@
+import os
 import sqlite3
 from pathlib import Path
 from datetime import datetime, timedelta
@@ -11,7 +12,7 @@ import jwt
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 MODEL_PATH = PROJECT_ROOT / "cardio_model.pkl"
-DB_PATH = PROJECT_ROOT / "server" / "cardio.db"
+DB_PATH = Path(os.getenv("DB_PATH", PROJECT_ROOT / "server" / "cardio.db"))
 
 # JWT Config
 SECRET_KEY = "cardiosight_secret_super_key_for_jwt"
